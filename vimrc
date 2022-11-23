@@ -2,10 +2,9 @@ if &compatible          " only if not set before:
   set nocompatible      " use vim-defaults instead of vi-defaults (easier, more user friendly)
 endif
 
-colorscheme gruvbox     " best colorscheme but requires crisp monitor for the best experience
 
-let g:gruvbox_contrast_dark="hard"
-let g:gruvbox_italic=1
+" let g:gruvbox_contrast_dark="hard"
+" let g:gruvbox_italic=1
 set textwidth=80
 set belloff=all         " remove those annoying bell sounds
 set ignorecase          " case insensitive searching
@@ -31,7 +30,12 @@ set matchtime=2         " show matching bracket for 0.2 seconds
 set matchpairs+=<:>     " specially for html
 set ssop-=options       " do not store global and local values in a session
 set ssop-=folds         " do not store folds
-
+" <Ctrl-l> redraws the screen and removes any search highlighting.
+nnoremap <silent> <C-l> :nohl<CR><C-l>
+" leader+e+v+i open vimrc in a new pane
+nnoremap <silent> <leader>evi :vsplit $MYVIMRC <CR>
+" source myvimrc aka reload the config
+nnoremap <silent> <leader>svi :so $MYVIMRC <CR>
 set bs=indent,eol,start " Allow backspacing over everything in insert mode
 
 set tabstop=4           " number of spaces a tab counts for
@@ -134,3 +138,10 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
 " If another buffer tries to replace NERDTree, put it in the other window, and bring back NERDTree.
 autocmd BufEnter * if bufname('#') =~ 'NERD_tree_\d\+' && bufname('%') !~ 'NERD_tree_\d\+' && winnr('$') > 1 |
     \ let buf=bufnr() | buffer# | execute "normal! \<C-W>w" | execute 'buffer'.buf | endif
+
+let g:lightline = {
+      \ 'colorscheme': 'dracula',
+      \ }
+" best colorscheme but requires crisp monitor for the best experience
+" this command is neccessaryu otherwise it wont work
+packadd! dracula | colorscheme dracula
